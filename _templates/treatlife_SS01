@@ -12,3 +12,27 @@ category: switch
 type: Switch
 standard: us
 ---
+
+## Alternate config 
+
+```console
+backlog Template {"NAME":"Treatlife SS01 3-Way","GPIO":[1,1,1,1,224,321,0,0,257,161,160,1,226,0],"FLAG":0,"BASE":18};module 0
+```
+Set the third "friendly name" in config
+```console
+FriendlyName3 My3wayLightSwitch
+```
+Set Rule1
+```console
+rule1 on power1#state=1 do backlog rule2 0; power3 1; rule2 1 endon on power1#state=0 do backlog rule2 0; power3 0; rule2 1 endon
+```
+Set Rule2
+```console
+rule2 on power3#state do backlog rule1 0; power2 2; rule1 1 endon
+```
+Enable the rules
+```console
+backlog rule1 1; rule2 1
+```
+With Home Assistant disable the first 2 named entites on the device. Only entity name that is the same as you defined for friendlyname3 above
+
